@@ -1,0 +1,15 @@
+Please be sure that all of your python systems are up to date before trying this
+Also make sure you are running this on a linux machine with up to date with tensorflow
+This uses parts of python and potentially blends with python3 as this evolves so make sure both are up to date
+When you know what images you would like to classify upload a folder with pictures of the directories respective name
+(ie. if I wanted to categorize roses, call a folder roses and put pictures of roses within) inside of the tf_files/catvdog directory
+By default this directory has a few flower folders, a chihuahua folder and a cat folder
+Feel free to change these directories contents, this is what will train this software
+Once all of these steps are taken care of, start the shell script by typing "./runclassifier.sh"
+This will prompt you with questions, just follow the instructions and you should be good but if not hit me up
+At this point all the annoying intermittent steps are done through shell scripts I wrote so lmk if you notice any bugs
+Mess around and delete the current categories or add more and test it thoroughly, try to break it so we know if we need to fix anything
+If you want to start adding to the repository I think it would be a great idea to start building a webscraper that pulls images from online by querying them through google images or another good image querying website.
+Once we get that portion implemented we can start making and start thinking of even more powerful things we can apply this tool to
+This is an incredibly powerful tool and it is surprisingly very accurate, there are many interesting things we can analyze and make decisions with
+Please let me know if anyone has any ideas of how to apply this or cool directions we can go in
