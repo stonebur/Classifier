@@ -9,9 +9,9 @@ Preference="Whatever the user chooses as a sexual preference"
 both=False
 
 if Preference=="Female":
-    os.chdir("Female")
+    os.chdir("..//tf_files/catvdog/Female")
 elif:                        #Preference=="Male":
-    os.chdir("Male")
+    os.chdir("..//tf_files/catvdog/Male")
 else:
     both=True
 
