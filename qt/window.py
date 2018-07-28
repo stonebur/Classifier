@@ -72,8 +72,8 @@ class Window(QWidget):
 		self.width = 640
 		self.height = 480
 		self.YesOrNo = None
-		self.noCounter = 199
-		self.yesCounter = 199
+		self.noCounter = 150
+		self.yesCounter = 150
 		self.initUI()
  
 	def initUI(self):
@@ -151,7 +151,8 @@ class Window(QWidget):
 	def on_clickNo(self):
 		self.noCounter += 1
 		shutil.move(self.temp,"../../catvdog/Dislike")
-		index=random.randint(0,self.length)
+		index=random.choice(list(self.pictures))					#get next image 
+		#index=random.randint(0,self.length)
 		if len(self.pictures)==0:
 			QCoreApplication.quit()
 		self.temp=(self.pictures[index])
