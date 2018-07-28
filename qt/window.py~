@@ -36,6 +36,7 @@ class FirstWindow(QWidget):
 		ButtonFemale.move(50,50)						#reposition the buttons here
 		ButtonFemale.clicked.connect(self.ClickFemale)
 		
+		
 		ButtonMale=QPushButton("Male", self)
 		ButtonMale.move(210,50)
 		ButtonMale.clicked.connect(self.ClickMale)
@@ -105,9 +106,7 @@ class Window(QWidget):
 			os.chdir("Female")
 		elif Preference=="Male":                        
 			os.chdir("Male")
-		else:						#need to implement fully
-			#both=True
-			pass
+
 		self.pictures= {}                #new dictionary created
 		counter=0
 								#assign each file in dicectory to a dictionary
@@ -164,20 +163,17 @@ class Window(QWidget):
 				counter = 0
 				os.chdir("../../../")
 				os.system("./train.sh")
-				for x in os.listdir("./tf_files/dataset/" + Preference):
+				for x in os.listdir("./tf_files/dataset/Female"):
 					os.system("python -m scripts.label_image --graph=tf_files/retrained_graph.pb	\
-						--image=tf_files/dataset/" + Preference + "/" + x)
+						--image=tf_files/dataset/Female/" + x)
 				scores = {}
 				with open("likeScores") as f:
 					for line in f:
 						(val, key) = line.split()
 						scores[key] = val
 				perfMatch = max(scores, key=scores.get)
-				open('likeScores', 'w').close()
 				self.picchange(perfMatch)
-				self.yesCounter = 195
-				self.noCounter = 195
-				os.chdir("tf_files/dataset/" + Preference)
+				os.chdir("tf_files/catvdog/Female")
 				
 
 
