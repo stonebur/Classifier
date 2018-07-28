@@ -67,8 +67,8 @@ class Window(QWidget):
 		self.width = 640
 		self.height = 480
 		self.YesOrNo = None
-		self.noCounter = 195
-		self.yesCounter = 195
+		self.noCounter = 180
+		self.yesCounter = 180
 		self.initUI()
 		
 	def centerOnScreen (self):
@@ -175,8 +175,8 @@ class Window(QWidget):
 				perfMatch = max(scores, key=scores.get)
 				open('likeScores', 'w').close()
 				self.picchange(perfMatch)
-				self.yesCounter = 195
-				self.noCounter = 195
+				self.yesCounter = 180
+				self.noCounter = 180
 				os.chdir("tf_files/dataset/" + Preference)
 				
 
