@@ -1,3 +1,4 @@
+
 '''
 First Window is called and is for choosing sexual preference
 in the button listeners for each of the preferences, a new picture viewing window is made
@@ -23,10 +24,15 @@ class FirstWindow(QWidget):
 		self.height = 100
 		self.YesOrNo = None
 		self.initUI()
+	def centerOnScreen (self):
+		resolution = QDesktopWidget().screenGeometry()
+		self.move((resolution.width() / 2) - (self.frameSize().width() / 2),
+                  (resolution.height() / 2) - (self.frameSize().height() / 2)) 
 		
 	def initUI(self):
 		self.setWindowTitle(self.title)
 		self.setGeometry(self.left, self.top, self.width, self.height)
+		self.centerOnScreen()
 		ButtonFemale=QPushButton("Female", self)
 		ButtonFemale.move(50,50)						#reposition the buttons here
 		ButtonFemale.clicked.connect(self.ClickFemale)
@@ -75,11 +81,17 @@ class Window(QWidget):
 		self.noCounter = 199
 		self.yesCounter = 199
 		self.initUI()
+
+	def centerOnScreen (self):
+		resolution = QDesktopWidget().screenGeometry()
+		self.move((resolution.width() / 2) - (self.frameSize().width() / 2),
+                  (resolution.height() / 2) - (self.frameSize().height() / 2)) 
+ 
  
 	def initUI(self):
 		self.setWindowTitle(self.title)
 		self.setGeometry(self.left, self.top, self.width, self.height)
-
+		self.centerOnScreen()
 		self.pic = QLabel(self)
 		self.pic.setPixmap(QPixmap("what.jpg"))		#loads this image just to set the size of the window
 		self.pic.show()								#this image isnt even viewed since it is displayed so briefly
@@ -182,4 +194,4 @@ class Window(QWidget):
 if __name__ == '__main__':
 	app = QApplication(sys.argv)
 	ex2=FirstWindow()
-	sys.exit(app.exec_())
+sys.exit(app.exec_())
