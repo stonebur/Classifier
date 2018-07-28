@@ -10,6 +10,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from PyQt5 import QtGui
 import shutil
+import subprocess
 #this is for sexual preference selection
 class FirstWindow(QWidget):
 
@@ -71,6 +72,8 @@ class Window(QWidget):
 		self.width = 640
 		self.height = 480
 		self.YesOrNo = None
+		self.noCounter = 199
+		self.yesCounter = 199
 		self.initUI()
  
 	def initUI(self):
@@ -105,6 +108,7 @@ class Window(QWidget):
 			os.chdir("Male")
 		else:						#need to implement fully
 			#both=True
+			pass
 		self.pictures= {}                #new dictionary created
 		counter=0
 								#assign each file in dicectory to a dictionary
@@ -133,24 +137,47 @@ class Window(QWidget):
 
 	@pyqtSlot()
 	def on_clickYes(self):
-		shutil.move(self.temp,"../catvdog/Like"+self.temp)				#add to liked
+		self.yesCounter += 1
+		shutil.move(self.temp,"../../catvdog/Like")				#add to liked
 		index=random.choice(list(self.pictures))					#get next image
 		if len(self.pictures)==0:									#if there are no pictures then quit
 			QCoreApplication.quit()
 		self.temp=(self.pictures[index])							#get next image
 		self.picchange(self.temp)									#change to the image
 		self.pictures.pop(index)									#delete the image filename from dictionary
-
+		self.trainAndSelect()
 		
 		
 	def on_clickNo(self):
-		shutil.move(self.temp,"../catvdog/DisLike"+self.temp)
+		self.noCounter += 1
+		shutil.move(self.temp,"../../catvdog/Dislike")
 		index=random.randint(0,self.length)
 		if len(self.pictures)==0:
 			QCoreApplication.quit()
 		self.temp=(self.pictures[index])
-		self.picchange(temp)
+		self.picchange(self.temp)
 		self.pictures.pop(index)
+		self.trainAndSelect()
+
+	def trainAndSelect(self):
+		if (self.yesCounter >= 200 and self.noCounter >= 200):
+				self.pics = {}
+				counter = 0
+				os.chdir("../../../")
+				os.system("./train.sh")
+				for x in os.listdir("./tf_files/dataset/Female"):
+					os.system("python -m scripts.label_image --graph=tf_files/retrained_graph.pb	\
+						--image=tf_files/dataset/Female/" + x)
+				scores = {}
+				with open("likeScores") as f:
+					for line in f:
+						(val, key) = line.split()
+						scores[key] = val
+				perfMatch = max(scores, key=scores.get)
+				self.picchange(perfMatch)
+
+				
+
 
 if __name__ == '__main__':
 	app = QApplication(sys.argv)

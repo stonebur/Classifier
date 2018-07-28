@@ -24,6 +24,8 @@ import time
 import numpy as np
 import tensorflow as tf
 
+import extractScore
+
 def load_graph(model_file):
   graph = tf.Graph()
   graph_def = tf.GraphDef()
@@ -135,3 +137,6 @@ if __name__ == "__main__":
   template = "{} (score={:0.5f})"
   for i in top_k:
     print(template.format(labels[i], results[i]))
+
+  extractScore.extract(labels, results, file_name)
+

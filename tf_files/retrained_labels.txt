@@ -1,7 +1,2 @@
-cat
-chihuahua
-daisy
-dandelion
-roses
-sunflowers
-tulips
+dislike
+like
