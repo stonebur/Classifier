@@ -36,10 +36,6 @@ class FirstWindow(QWidget):
 		ButtonFemale.move(50,50)						#reposition the buttons here
 		ButtonFemale.clicked.connect(self.ClickFemale)
 		
-		ButtonBoth=QPushButton("Both", self)
-		ButtonBoth.move(130,50)
-		ButtonBoth.clicked.connect(self.ClickBoth)
-		
 		ButtonMale=QPushButton("Male", self)
 		ButtonMale.move(210,50)
 		ButtonMale.clicked.connect(self.ClickMale)
@@ -52,12 +48,6 @@ class FirstWindow(QWidget):
 		self.hide()
 		self.ex.show()
 		
-	def ClickBoth(self):
-		global Preference
-		Preference="Both"
-		self.ex = Window()
-		self.hide
-		self.ex.show()
 		
 	def ClickMale(self):
 		global Preference
@@ -174,17 +164,20 @@ class Window(QWidget):
 				counter = 0
 				os.chdir("../../../")
 				os.system("./train.sh")
-				for x in os.listdir("./tf_files/dataset/Female"):
+				for x in os.listdir("./tf_files/dataset/" + Preference):
 					os.system("python -m scripts.label_image --graph=tf_files/retrained_graph.pb	\
-						--image=tf_files/dataset/Female/" + x)
+						--image=tf_files/dataset/" + Preference + "/" + x)
 				scores = {}
 				with open("likeScores") as f:
 					for line in f:
 						(val, key) = line.split()
 						scores[key] = val
 				perfMatch = max(scores, key=scores.get)
+				open('likeScores', 'w').close()
 				self.picchange(perfMatch)
-				os.chdir("tf_files/catvdog/Female")
+				self.yesCounter = 195
+				self.noCounter = 195
+				os.chdir("tf_files/dataset/" + Preference)
 				
 
 
