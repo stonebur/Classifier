@@ -16,7 +16,7 @@ import requests
 import os
 
 
-API_KEY = "63f783587b9842c0a87b22e4354725f5"	#Type in key here
+API_KEY = ""	#Type in key here
 #Set NUM_RESULTS to desired number of images to gather
 NUM_RESULTS = 250
 RESULTS_PER_PAGE = 50	#max 150
